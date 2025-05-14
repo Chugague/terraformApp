@@ -1,0 +1,28 @@
+# Node / Angular
+node_modules/
+dist/
+.angular/
+.env
+.env.local
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.crash
+*.tfvars
+terraform.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# System
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+
+# Docker
+*.tar
