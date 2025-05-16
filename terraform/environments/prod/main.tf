@@ -10,7 +10,7 @@ module "vpc" {
 
 # 3. Security Group para el ALB y ECS
 resource "aws_security_group" "ecs_sg" {
-  name        = "pagerduty-test-sg"
+  name        = "pagerduty-prod-sg"
   description = "Allow HTTP access to ECS service"
   vpc_id      = module.vpc.vpc_id
 
@@ -56,15 +56,15 @@ module "alb" {
 module "ecs" {
   source = "../../modules/ecs"
 
-  cluster_name         = "pagerduty-test-cluster"
-  task_family          = "pagerduty-test-task"
+  cluster_name         = "pagerduty-prod-cluster"
+  task_family          = "pagerduty-prod-task"
   cpu                  = "256"
   memory               = "512"
   execution_role_arn   = module.iam.execution_role_arn
   container_name       = "pagerduty-angular"
   image                = "chugague/pagerduty-angular:latest"  # O tu imagen local si subes a ECR
   container_port       = 80
-  service_name         = "pagerduty-test-service"
+  service_name         = "pagerduty-prod-service"
   desired_count        = 1
 
   environment_variables = [
