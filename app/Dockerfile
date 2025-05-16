@@ -1,9 +1,10 @@
 # Etapa de construcción Angular
 FROM node:20-alpine AS builder
+ARG BUILD_ENV=test
 WORKDIR /app
 COPY . .
 RUN npm install
-RUN npm run build:production
+RUN npm run build:${BUILD_ENV}
 
 # Etapa final con NGINX
 FROM nginx:alpine
