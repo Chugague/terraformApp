@@ -6,6 +6,7 @@ on:
 
 env:
   BUILD_ENV: ${{ github.ref_name == 'main' && 'production' || 'test' }}
+  TERRAFORM_ENV: ${{ github.ref_name == 'main' && 'prod' || 'test' }}
 
 jobs:
   build-and-deploy:
@@ -55,7 +56,7 @@ jobs:
           terraform_version: 1.6.6
 
       - name: Deploy with Terraform
-        working-directory: terraform/environments/${{ github.ref_name }}
+        working-directory: terraform/environments/${TERRAFORM_ENV}
         run: |
           terraform init
           terraform apply -auto-approve
