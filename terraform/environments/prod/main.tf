@@ -38,14 +38,14 @@ resource "aws_security_group" "ecs_sg" {
 # 4. IAM Role para ECS Task Execution
 module "iam" {
   source    = "../../modules/iam"
-  role_name = "pagerduty-ecs-execution-role-test"
+  role_name = "pagerduty-ecs-execution-role-prod"
 }
 
 # 5. Load Balancer y Target Group
 module "alb" {
   source              = "../../modules/alb"
-  alb_name            = "pagerduty-test-alb"
-  target_group_name   = "pagerduty-test-tg"
+  alb_name            = "pagerduty-prod-alb"
+  target_group_name   = "pagerduty-prod-tg"
   vpc_id              = module.vpc.vpc_id
   subnet_ids          = module.vpc.public_subnet_ids
   security_group_ids  = [aws_security_group.ecs_sg.id]
