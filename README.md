@@ -42,6 +42,12 @@ This project demonstrates the use of DevOps best practices to provision and mana
 └── .gitignore
 ```
 
+## Architecture Overview
+
+This diagram shows the GitHub-based CI/CD pipeline and the infrastructure created with Terraform for `test` and `production` environments:
+
+![Architecture](./images/infrastructure-devops-diagram.png)
+
 ## How to Deploy Manually
 
 You can deploy this project from your local machine using Terraform and Docker.
@@ -74,7 +80,7 @@ ng serve
 ```
 Visit http://localhost:4200
 
-### 3. Build and containerize the Angular app locally (optional)
+### 4. Build and containerize the Angular app locally (optional)
 
 ```
 docker build --build-arg BUILD_ENV=test -t pagerduty-angular:test .
@@ -82,7 +88,7 @@ docker run -p 8080:80 pagerduty-angular:test
 ```
 Visit http://localhost:8080
 
-### 4. Configure AWS credentials
+### 5. Configure AWS credentials
 
 You must use an IAM user with permissions to manage ECS, ALB, IAM, and VPC resources. Make sure AWS CLI is installed, 
 then run:
@@ -91,7 +97,7 @@ then run:
 aws configure
 ```
 
-### 5. Deploy to test environment
+### 6. Deploy to test environment
 
 Make sure Terraform is installed, then run:
 
@@ -101,7 +107,7 @@ terraform init
 terraform apply -auto-approve
 ```
 
-### 6. Destroy the environment (to avoid AWS charges)
+### 7. Destroy the environment (to avoid AWS charges)
 
 ```
 terraform destroy -auto-approve
@@ -124,6 +130,19 @@ To enable GitHub Actions to deploy automatically, the following secrets must be 
 | `AWS_SECRET_ACCESS_KEY`  | AWS IAM secret access key           |
 
 > 💡 These values must be added under **Settings → Secrets → Actions** in your GitHub repository.
+
+
+## 🔍 Production Preview
+
+Below is a live deployment of the app from the `main` branch:
+
+![Production Preview](./images/prod-app-preview.png)
+
+
+## 🔍 Note
+
+The production environment has been destroyed to avoid unnecessary AWS charges.  
+To re-deploy it, simply push to the `main` or `develop` branch and the CI/CD pipeline will provision it automatically.
 
 
 ## Author
