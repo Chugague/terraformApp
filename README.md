@@ -1,4 +1,4 @@
-# PagerDuty Assignment – DevOps Take-Home Project
+# DevOps Take-Home Project
 
 
 
