@@ -2,25 +2,25 @@
 
 
 
-## Project Overview
+## Descripción general del proyecto
 
-This project demonstrates the use of DevOps best practices to provision and manage AWS infrastructure using Terraform, deploy a containerized Angular application with ECS, and automate deployments via CI/CD pipelines.
+Este proyecto demuestra el uso de buenas prácticas DevOps para aprovisionar y gestionar infraestructura en AWS utilizando Terraform, desplegar una aplicación Angular contenedorizada con ECS y automatizar despliegues mediante pipelines CI/CD.
 
-## Infrastructure Components
+## Componentes de la infraestructura
 
-- AWS ECS Fargate Cluster
-- Application Load Balancer (ALB)
-- IAM roles
-- Security Groups
-- VPC + Subnets (via Terraform modules)
+- Clúster AWS ECS Fargate
+- Balanceador de carga de aplicación (ALB)
+- Roles IAM
+- Grupos de seguridad
+- VPC + subredes (a través de módulos Terraform)
 
-## CI/CD Workflow
+## Flujo de trabajo CI/CD
 
-- **Branch `develop`** : builds and deploys to **test** environment
-- **Branch `main`**    : builds and deploys to **production** environment
-- Docker image is tagged and pushed to Docker Hub with the branch name
+- Rama develop: compila y despliega en el entorno de pruebas (test)
+- Rama main: compila y despliega en el entorno de producción
+- La imagen Docker se etiqueta y se sube a Docker Hub usando el nombre de la rama
 
-## 📁 Repository Structure
+## 📁 Estructura del repositorio
 
 ```
 .
@@ -42,36 +42,36 @@ This project demonstrates the use of DevOps best practices to provision and mana
 └── .gitignore
 ```
 
-## Architecture Overview
+## Arquitectura general
 
-This diagram shows the GitHub-based CI/CD pipeline and the infrastructure created with Terraform for `test` and `production` environments:
+Este diagrama muestra el pipeline CI/CD basado en GitHub y la infraestructura creada con Terraform para los entornos de test y producción:
 
 ![Architecture](./images/infrastructure-devops-diagram.png)
 
-## How to Deploy Manually
+## Cómo desplegar manualmente
 
-You can deploy this project from your local machine using Terraform and Docker.
+Puedes desplegar este proyecto desde tu máquina local utilizando Terraform y Docker.
 
 
-### 1. Prerequisites
+### 1. Requisitos previos
 
-- AWS account with access key and secret
-- Terraform CLI installed (v1.6.x or higher)
-- Docker installed (optional, for local testing)
-- Angular CLI installed (optional)
-- A public Docker Hub repository (optional if not using CI/CD)
+- Cuenta AWS con clave de acceso y clave secreta
+- Terraform CLI instalado (v1.6.x o superior)
+- Docker instalado (opcional, para pruebas locales)
+- Angular CLI instalado (opcional)
+- Un repositorio público en Docker Hub (opcional si no se usa CI/CD)
 
 ---
 
 
-### 2. Clone the repository
+### 2. Clona el repositorio
 
 ```bash
 git clone https://github.com/Chugague/pagerduty-assignment.git
 cd pagerduty-assignment
 ```
 
-### 3. Test the Angular app locally (optional)
+### 3. Probar la app Angular localmente (opcional)
 
 ```
 cd app
@@ -80,7 +80,7 @@ ng serve
 ```
 Visit http://localhost:4200
 
-### 4. Build and containerize the Angular app locally (optional)
+### 4. Compilar y contenedizar la app Angular localmente (opcional)
 
 ```
 docker build --build-arg BUILD_ENV=test -t pagerduty-angular:test .
@@ -88,18 +88,17 @@ docker run -p 8080:80 pagerduty-angular:test
 ```
 Visit http://localhost:8080
 
-### 5. Configure AWS credentials
+### 5. Configurar credenciales AWS
 
-You must use an IAM user with permissions to manage ECS, ALB, IAM, and VPC resources. Make sure AWS CLI is installed, 
-then run:
+Debes usar un usuario IAM con permisos para gestionar ECS, ALB, IAM y recursos de VPC. Asegúrate de tener instalado AWS CLI, luego ejecuta:
 
 ```
 aws configure
 ```
 
-### 6. Deploy to test environment
+### 6. Desplegar al entorno de pruebas
 
-Make sure Terraform is installed, then run:
+Asegúrate de tener Terraform instalado, luego ejecuta:
 
 ```
 cd terraform/environments/test
@@ -107,45 +106,45 @@ terraform init
 terraform apply -auto-approve
 ```
 
-### 7. Destroy the environment (to avoid AWS charges)
+### 7. Destruir el entorno (para evitar cobros en AWS)
 
 ```
 terraform destroy -auto-approve
 ```
 
-## How to Deploy via GitHub Actions pipeline
+## Cómo desplegar con el pipeline de GitHub Actions
 
-- Push to `develop` → deploys to **test** environment
-- Push to `main`    → deploys to **production** environment
+- Push a develop → despliega en entorno de test
+- Push a main → despliega en entorno de producción
 
-### GitHub Secrets Required for CI/CD
+### Secretos requeridos para CI/CD en GitHub
 
-To enable GitHub Actions to deploy automatically, the following secrets must be configured in the repository:
+Para permitir que GitHub Actions despliegue automáticamente, se deben configurar los siguientes secretos en el repositorio:
 
-| Secret Name             | Purpose                            |
+| Secret Name              | Purpose                             |
 |--------------------------|-------------------------------------|
-| `DOCKERHUB_USERNAME`     | Docker Hub username                 |
-| `DOCKERHUB_TOKEN`        | Docker Hub access token             |
-| `AWS_ACCESS_KEY_ID`      | AWS IAM access key                  |
-| `AWS_SECRET_ACCESS_KEY`  | AWS IAM secret access key           |
+| `DOCKERHUB_USERNAME`     | Nombre de usuario en Docker Hub     |
+| `DOCKERHUB_TOKEN`        | Token de acceso a Docker Hub        |
+| `AWS_ACCESS_KEY_ID`      | Clave de acceso IAM de AWS          |
+| `AWS_SECRET_ACCESS_KEY`  | Clave secreta IAM de AWS            |
 
-> 💡 These values must be added under **Settings → Secrets → Actions** in your GitHub repository.
+> 💡 Estos valores se agregan en Settings → Secrets → Actions dentro del repositorio de GitHub.
 
 
-## 🔍 Production Preview
+## 🔍 Vista previa en producción
 
-Below is a live deployment of the app from the `main` branch:
+A continuación se muestra un despliegue en vivo de la app desde la rama main:
 
 ![Production Preview](./images/prod-app-preview.png)
 
 
-## 🔍 Note
+## 🔍 Nota
 
-The production environment has been destroyed to avoid unnecessary AWS charges.  
-To re-deploy it, simply push to the `main` or `develop` branch and the CI/CD pipeline will provision it automatically.
+El entorno de producción ha sido destruido para evitar costos innecesarios en AWS.
+Para volver a desplegarlo, simplemente haz push a las ramas main o develop y el pipeline CI/CD lo provisionará automáticamente.
 
 
-## Author
+## Autor
 
 Kevin Ugalde  
 DevOps and Software Engineer.
